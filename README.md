@@ -24,7 +24,7 @@ A SketchUp Ruby extension designed to automate background image extraction for w
 - **Transparent Background Option:** Supports transparent background rendering for empty space.
 <table border="0">
   <tr>
-    <td border="0"><img valign="top" width="40%" alt="menu" src="https://github.com/user-attachments/assets/09ffece8-2771-475d-b7a9-31551f146c03" /><img valign="top" width="60%" alt="window" src="https://github.com/user-attachments/assets/21f21dd8-82a0-46a7-b796-ab0f6b553905" /></td>
+    <td border="0"><img valign="top" width="40%" alt="menu" src="https://github.com/user-attachments/assets/09ffece8-2771-475d-b7a9-31551f146c03" /><img valign="top" width="60%" alt="window2.1.1" src="https://github.com/user-attachments/assets/5338dd20-38cb-4cf1-84b3-c96bbee7b207" /></td>
   </tr>
 </table>
 
