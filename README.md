@@ -40,7 +40,7 @@ A SketchUp Ruby extension designed to automate background image extraction for w
 6. **Export Settings:**
    - Choose your target **File Type** (PSD, PNG, JPG, etc.).
    - Specify the image size (**Width × Height**).
-7. **Export:** Click the **Export Webtoon Images** (웹툰내보내기) button.
+7. **Export:** Click the **Export Webtoon Images** (Export Webtoon) button.
 8. **Completion:** Wait for the export process to complete until the notification dialog appears.
 
 ---
