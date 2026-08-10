@@ -29,6 +29,10 @@ A SketchUp Ruby extension designed to automate background image extraction for w
 </table>
 
 ---
+## 🌐 Multi-Language Support
+
+- **Supported Languages (8 Languages):** English, Korean, French, Spanish, Russian, Chinese, Japanese, and German.
+- **Dynamic Language Loading:** Simply place `.json` language files into the `lang/` folder, and the app will automatically detect and load them.
 
 ## 🛠️ How to Use
 
