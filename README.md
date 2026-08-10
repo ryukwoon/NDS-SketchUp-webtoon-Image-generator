@@ -35,7 +35,7 @@ A SketchUp Ruby extension designed to automate background image extraction for w
 1. **Install Extension:** Load the `.rbz` file into SketchUp via Extension Manager.
 2. **Set Up Camera:** Open your SketchUp model and adjust the camera to your desired angle.
 3. **Open Tool:** Launch **NDS-WIC** from the toolbar icon or the Extensions menu.
-4. **Generate Scenes:** Select the scene types you want (e.g., LineArt, Shadow, Base Color, Thick Lines) and click **Create Scenes** (장면생성).
+4. **Generate Scenes:** Select the scene types you want (e.g., LineArt, Shadow, Base Color, Thick Lines) and click **Create Scenes** (Scene generation).
 5. **Select Scenes:** Check all the generated scenes you wish to export.
 6. **Export Settings:**
    - Choose your target **File Type** (PSD, PNG, JPG, etc.).
