@@ -48,7 +48,35 @@ A SketchUp Ruby extension designed to automate background image extraction for w
 8. **Completion:** Wait for the export process to complete until the notification dialog appears.
 
 ---
+## Generated Image Types
+<table border="0">
+  <tr>
+    <td valign="top" align="center"><img width="100%" alt="Line" src="https://github.com/user-attachments/assets/e7bdf1d1-aa36-43a6-b394-4b0718b146d8" />
+<br><b>Line</b></td>
+    <td valign="top" align="center"><img width="100%" alt="Profile" src="https://github.com/user-attachments/assets/acb04f40-616e-4fc2-aba9-7c2e03a30e38" />
+<br><b>Profile</b></td>
+    <td valign="top" align="center"><img width="100%" alt="Vibration" src="https://github.com/user-attachments/assets/a756efc3-c9c1-4e83-98ab-6c89684c999c" />
+<br><b>Vibration</b></td>
+    <td valign="top" align="center"><img width="100%" alt="Cley" src="https://github.com/user-attachments/assets/b3ea1249-1acb-441f-990b-ef72abf12d1b" />
+<br><b>Cley</b></td>
+    <td valign="top" align="center"><img width="100%" alt="Shadow" src="https://github.com/user-attachments/assets/d79a409e-9d2f-4ff0-9cb5-c329248bb753" />
+<br><b>Shadow</b></td>
+  </tr>
+  <tr>
+    <td valign="top" align="center"><img width="100%" alt="Texture" src="https://github.com/user-attachments/assets/d25682d7-dd4b-4ee5-8ea1-26aca6a5c681" />
+<br><b>Texture</b></td>
+    <td valign="top" align="center"><img width="100%" alt="Color" src="https://github.com/user-attachments/assets/d30d18d3-42a3-4b73-8a97-52267d7bb143" />
+<br><b>Color</b></td>
+    <td valign="top" align="center"><img width="100%" alt="Color_by_Layer" src="https://github.com/user-attachments/assets/4eed98c0-d3c2-4f22-a6e7-f4030bbf60eb" />
+<br><b>Color_by_Layer</b></td>
+    <td valign="top" align="center"><img width="100%" alt="Alpha" src="https://github.com/user-attachments/assets/e4524298-bbec-4a0b-b94e-55cb87677e57" />
+<br><b>Alpha</b></td>
+    <td valign="top" align="center"><img width="100%" alt="Zdepth" src="https://github.com/user-attachments/assets/d51b0d21-4a29-4aab-8edc-162277e5bae7" />
+<br><b>Z-Depth</b></td>
+  </tr>
+</table>
 
+---
 ## 📁 Output Directory
 
 - The completion dialog will show the path to the output folder.
