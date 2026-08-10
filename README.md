@@ -22,6 +22,7 @@ A SketchUp Ruby extension designed to automate background image extraction for w
 - **Multi-Format Support:** Export directly to PNG, JPG, and other standard image formats.
 - **Custom Dimensions:** Set custom image resolution (width × height) before exporting.
 - **Transparent Background Option:** Supports transparent background rendering for empty space.
+<img width="625" height="673" alt="window" src="https://github.com/user-attachments/assets/21f21dd8-82a0-46a7-b796-ab0f6b553905" />
 
 ---
 
