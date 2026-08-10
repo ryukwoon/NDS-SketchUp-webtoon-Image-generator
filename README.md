@@ -1,33 +1,46 @@
-# NDS- 스케치업 웹툰 배경 생성기
-스케치업에서 웹툰용 배경 이미지를 추출하는 루비입니다. 
-씬을 생성하고 그것을 psd, png 등의 이미지로 출출해주는 기능을 가지고 있습니다. 
-스케치업 2019에서 테스트 하였습니다. 
+# NDS - SketchUp Webtoon Background Generator
 
-# 다운로드
-- 릴리즈에서 새 버전을 다운로드 합니다.
-- .rbz 포맷은 스케치업 루비 포맷입니다.
-- 이 루비는 스케치업 2016 이상의 버전에 설치 할 수 있습니다.
-- 2016 이하 버전에서는 테스트 하지 않았습니다.(사용 가능 할 수도 있습니다)
+A SketchUp Ruby extension designed to automate background image extraction for webtoons and comics. It creates standard webtoon rendering scenes and exports them into multi-layer PSD files or standard image formats like PNG and JPG.
 
-# 기능성
-- 11종류의 장면을 생성 할 수 있습니다.
-- 생성한 장면(펜선, 그림자, 기본색 등)을 생성하여 PSD로 생성해 줍니다.
-- PNG, JPG 등 일반적인 이미지 포맷을 지원합니다.
-- 생성할 이미지의 사이즈를 지정 할 수 있습니다.
-- 빈공간을 투명하게 처리 할 수 있는 옵션을 제공 합니다.
+> **Note:** Tested and verified on **SketchUp 2019**.
 
-# 사용방법
-- 스케치업에서 루비(확장파일)를 등록 합니다.
-- 스케치업 소재를 로드하여 원하는 구도를 만듭니다.
-- NDS-WIC를 호출 합니다.(아이콘제공/확장메뉴에 등록되어 있습니다)
-- 원하는 기능을 체크하고 장면생성 버튼을 누릅니다.(장면은 원하는 종류로 선택합니다. 예 : 실선/그림자/기본색/두꺼운선)
-- 모든장면에 체크합니다.
-- 파일타입을 선택 합니다.
-- 가로x세로 사이즈를 지정 합니다.
-- 웹툰내보내기 버튼을 누릅니다.
-- 잠시 기다리면 완료 안내창이 나타납니다.
+---
 
-# 생성된 이미지 확인
-- 완료 안내창에 생성 된 이미지의 저장 폴더가 안내되어 있습니다.
-- 통상은 스케치업 소재 파일이 있는 장소에 이미지 파일을 생성 합니다.
-  
+## 📥 Download & Installation
+
+- Download the latest version from the [Releases](../../releases) section.
+- **Format:** `.rbz` (SketchUp Extension / Ruby format).
+- **Compatibility:** SketchUp 2016 or higher.
+  *(Versions prior to 2016 have not been tested, but may still work.)*
+
+---
+
+## ✨ Features
+
+- **11 Scene Types:** Automatically generates up to 11 custom scene styles (e.g., LineArt, Shadows, Base Colors, Thick Lines, etc.).
+- **PSD Export:** Combines generated scenes into layered PSD files for efficient post-processing.
+- **Multi-Format Support:** Export directly to PNG, JPG, and other standard image formats.
+- **Custom Dimensions:** Set custom image resolution (width × height) before exporting.
+- **Transparent Background Option:** Supports transparent background rendering for empty space.
+
+---
+
+## 🛠️ How to Use
+
+1. **Install Extension:** Load the `.rbz` file into SketchUp via Extension Manager.
+2. **Set Up Camera:** Open your SketchUp model and adjust the camera to your desired angle.
+3. **Open Tool:** Launch **NDS-WIC** from the toolbar icon or the Extensions menu.
+4. **Generate Scenes:** Select the scene types you want (e.g., LineArt, Shadow, Base Color, Thick Lines) and click **Create Scenes** (장면생성).
+5. **Select Scenes:** Check all the generated scenes you wish to export.
+6. **Export Settings:**
+   - Choose your target **File Type** (PSD, PNG, JPG, etc.).
+   - Specify the image size (**Width × Height**).
+7. **Export:** Click the **Export Webtoon Images** (웹툰내보내기) button.
+8. **Completion:** Wait for the export process to complete until the notification dialog appears.
+
+---
+
+## 📁 Output Directory
+
+- The completion dialog will show the path to the output folder.
+- By default, exported images are saved in the **same directory as the current SketchUp (`.skp`) model file**.
