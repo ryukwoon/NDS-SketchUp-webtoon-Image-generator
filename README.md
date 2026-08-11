@@ -17,7 +17,7 @@ A SketchUp Ruby extension designed to automate background image extraction for w
 
 ## ✨ Features
 
-- **11 Scene Types:** Automatically generates up to 11 custom scene styles (e.g., LineArt, Shadows, Base Colors, Thick Lines, etc.).
+- **10 Scene Types:** Automatically generates up to 10 custom scene styles (e.g., LineArt, Shadows, Base Colors, Thick Lines, etc.).
 - **PSD Export:** Combines generated scenes into layered PSD files for efficient post-processing.
 - **Multi-Format Support:** Export directly to PNG, JPG, and other standard image formats.
 - **Custom Dimensions:** Set custom image resolution (width × height) before exporting.
