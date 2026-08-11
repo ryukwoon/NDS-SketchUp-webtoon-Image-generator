@@ -84,9 +84,9 @@ A SketchUp Ruby extension designed to automate background image extraction for w
 
 ---
 <p align="center">
-  <a href="https://youtu.be/YhRqtDTq2CU" target="_blank">
+  <a href="https://youtu.be/YhRqtDTq2CU" target="_blank" rel="noopener noreferrer">
     <img src="https://img.youtube.com/vi/YhRqtDTq2CU/maxresdefault.jpg" width="80%" alt="NDS-WIC Demo Video" />
   </a>
   <br>
-  <sub><b>🎬 NDS-WIC 기능 시연 영상 (클릭하여 유튜브에서 보기)</b></sub>
+  <sub><b>🎬 NDS-WIC Feature Demo (Click to watch on YouTube)</b></sub>
 </p>
