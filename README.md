@@ -81,3 +81,12 @@ A SketchUp Ruby extension designed to automate background image extraction for w
 
 - The completion dialog will show the path to the output folder.
 - By default, exported images are saved in the **same directory as the current SketchUp (`.skp`) model file**.
+
+---
+<p align="center">
+  <a href="https://youtu.be/YhRqtDTq2CU" target="_blank">
+    <img src="https://img.youtube.com/vi/YhRqtDTq2CU/maxresdefault.jpg" width="80%" alt="NDS-WIC Demo Video" />
+  </a>
+  <br>
+  <sub><b>🎬 NDS-WIC 기능 시연 영상 (클릭하여 유튜브에서 보기)</b></sub>
+</p>
