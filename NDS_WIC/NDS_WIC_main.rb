@@ -2,7 +2,7 @@
 # ==============================================================================
 # 파일명: NDS_WIC_main.rb
 # 인코딩: UTF-8
-# 설명: [NDS-WIC] 비동기 레이어 스트리밍 컨트롤러 (47개 중복 알림창 완벽 차단 수정판)
+# 설명: [NDS-WIC v2.1.1] 비동기 레이어 스트리밍 컨트롤러
 # ==============================================================================
 
 require_relative 'NDS_WIC_psd'
@@ -32,13 +32,14 @@ module NDS_Extensions
 
       def show_dialog
         if @@dialog == nil
-          @@dialog = UI::WebDialog.new(I18n.t("TITLE"), false, "NDS_WIC_Dialog", 640, 680, 100, 100, true)
+          # 세로 크기 740px로 수정
+          @@dialog = UI::WebDialog.new(I18n.t("TITLE"), false, "NDS_WIC_Dialog", 640, 720, 100, 100, true)
           @@dialog.add_action_callback("push_frame") do |dialog, data|
             push_frame(dialog, data)
           end
         end
 
-        @@dialog.set_size(640, 680)
+        @@dialog.set_size(640, 720)
         @@dialog.set_file(@html_file)
         
         @@dialog.show do
@@ -78,24 +79,43 @@ module NDS_Extensions
         @@dialog.execute_script(js_code)
       end
 
+      # [장면 생성 순서 정렬 반영]
+      # 실선 -> 두꺼운선 -> 진동 -> 기본색 -> 명암 -> 클레이 -> 텍스쳐 -> 컬러레이어 -> 알파 -> Z뎁스
       def execute_scene_creation(params)
         model = Sketchup.active_model
         pages = model.pages
 
-        create_channel_scene(model, pages, "Alpha", "Alpha Style.style") if params['alpha'] == "true"
-        create_channel_scene(model, pages, "Cley", "Cley Style.style", light: 50, dark: 15) if params['cley'] == "true"
-        create_channel_scene(model, pages, "Color", "Color Style.style") if params['color'] == "true"
-        create_channel_scene(model, pages, "Color by Layer", "Color by Layer Style.style") if params['colorbylayer'] == "true"
+        # 1. 실선 (Line)
         create_channel_scene(model, pages, "Line", "Line Style.style") if params['line'] == "true"
+
+        # 2. 두꺼운선 (Profile)
         create_channel_scene(model, pages, "Profile", "Profile Style.style") if params['profile'] == "true"
 
+        # 3. 진동 (Vibration)
+        create_channel_scene(model, pages, "Vibration", "k_freepen001.style") if params['vibration'] == "true"
+
+        # 4. 기본색 (Color)
+        create_channel_scene(model, pages, "Color", "Color Style.style") if params['color'] == "true"
+
+        # 5. 명암 (Shadow)
         if params['shadow'] == "true"
           create_channel_scene(model, pages, "Shadow", "Shadow Style.style", shadow: true, light: 100, dark: 0)
         end
 
+        # 6. 클레이 (Cley)
+        create_channel_scene(model, pages, "Cley", "Cley Style.style", light: 50, dark: 15) if params['cley'] == "true"
+
+        # 7. 텍스쳐 (Texture)
         create_channel_scene(model, pages, "Texture", "Texture Style.style") if params['texture'] == "true"
+
+        # 8. 컬러레이어 (Color by Layer)
+        create_channel_scene(model, pages, "Color by Layer", "Color by Layer Style.style") if params['colorbylayer'] == "true"
+
+        # 9. 알파 (Alpha)
+        create_channel_scene(model, pages, "Alpha", "Alpha Style.style") if params['alpha'] == "true"
+
+        # 10. Z뎁스 (Zdepth)
         create_channel_scene(model, pages, "Zdepth", "Zdepth Style.style", fog: true) if params['zdepth'] == "true"
-        create_channel_scene(model, pages, "Vibration", "k_freepen001.style") if params['vibration'] == "true"
 
         UI.messagebox(I18n.t("MSG_CREATE_DONE"))
       end
@@ -166,7 +186,6 @@ module NDS_Extensions
         actual_w = width
         actual_h = height
 
-        # 장면 전환 애니메이션 속도 0으로 설정 (고속 전환)
         options = model.options['PageOptions'] rescue {}
         old_transition = options['TransitionTime'] rescue 0
         options['TransitionTime'] = 0 rescue nil
@@ -174,7 +193,7 @@ module NDS_Extensions
         update_ui_progress(0, I18n.t("PROG_PREPARING_PSD"))
 
         process_proc = proc do
-          UI.stop_timer(timer_id) if timer_id # 타이머 중복 방지
+          UI.stop_timer(timer_id) if timer_id
 
           if current_idx < total_pages
             page = pages[current_idx]
@@ -191,7 +210,10 @@ module NDS_Extensions
               model.pages.selected_page = page
               model.active_view.refresh
 
-              temp_file = File.join(sys_temp_dir, "nds_wic_temp_#{page.entityID}.png")
+              is_rep_supported = defined?(Sketchup::ImageRep)
+              ext_name = is_rep_supported ? "png" : "bmp"
+              temp_file = File.join(sys_temp_dir, "nds_wic_temp_#{page.entityID}.#{ext_name}")
+
               keys = {
                 :filename => temp_file,
                 :width => width,
@@ -203,26 +225,26 @@ module NDS_Extensions
               status = model.active_view.write_image(keys)
 
               if status && File.exist?(temp_file)
-                raw_rgba = nil
-                if defined?(Sketchup::ImageRep)
+                raw_bgra = nil
+                if is_rep_supported
                   img_rep = Sketchup::ImageRep.new
                   img_rep.load_file(temp_file)
-                  raw_rgba = img_rep.data
+                  raw_bgra = img_rep.data
                   actual_w = img_rep.width
                   actual_h = img_rep.height
                 else
-                  bmp_info = PsdWriter.read_bmp_rgba(temp_file)
+                  bmp_info = PsdWriter.read_bmp_bgra(temp_file)
                   if bmp_info
-                    raw_rgba = bmp_info[:rgba]
+                    raw_bgra = bmp_info[:bgra]
                     actual_w = bmp_info[:width]
                     actual_h = bmp_info[:height]
                   end
                 end
 
-                if raw_rgba && !raw_rgba.empty?
+                if raw_bgra && !raw_bgra.empty?
                   layers_data << {
                     :name => page_name,
-                    :data => raw_rgba,
+                    :data => raw_bgra,
                     :width => actual_w,
                     :height => actual_h
                   }
@@ -238,7 +260,7 @@ module NDS_Extensions
             GC.start
             timer_id = UI.start_timer(0.05, false, &process_proc)
           else
-            options['TransitionTime'] = old_transition rescue nil # 애니메이션 복원
+            options['TransitionTime'] = old_transition rescue nil
             start_incremental_psd_build(model, folder, actual_w, actual_h, layers_data)
           end
         end
@@ -279,12 +301,12 @@ module NDS_Extensions
           layer_channels_list = []
 
           layers_data.each do |layer|
-            raw_rgba = layer[:data]
+            raw_bgra = layer[:data]
             layer_name = layer[:name] || 'Layer'
             layer_w = layer[:width] || width
             layer_h = layer[:height] || height
 
-            chans = PsdWriter.extract_channels_fast(raw_rgba, layer_w, layer_h)
+            chans = PsdWriter.extract_channels_fast(raw_bgra, layer_w, layer_h)
             layer_channels_list << chans
 
             channels = [
@@ -332,7 +354,7 @@ module NDS_Extensions
           layer_idx = 0
 
           write_layer_proc = proc do
-            UI.stop_timer(timer_id) if timer_id # 타이머 중복 방지
+            UI.stop_timer(timer_id) if timer_id
 
             if layer_idx < num_layers
               percent = 80 + (((layer_idx + 1).to_f / num_layers) * 15).to_i
@@ -350,7 +372,7 @@ module NDS_Extensions
               GC.start
               timer_id = UI.start_timer(0.05, false, &write_layer_proc)
             else
-              next if export_finished # 중복 방지
+              next if export_finished
               export_finished = true
 
               f.write(padding) unless padding.empty?
@@ -374,7 +396,6 @@ module NDS_Extensions
               @@export_busy = false
               update_ui_progress(100, I18n.t("PROG_PSD_DONE"))
 
-              # 단 1회만 실행되는 알림창
               UI.messagebox("#{I18n.t('MSG_EXPORT_PSD_DONE')}\n#{I18n.t('MSG_SAVED_PATH')}: #{folder}")
               UI.openURL("file:///#{folder}")
             end
@@ -392,14 +413,12 @@ module NDS_Extensions
         end
       end
 
-      # 비동기 개별 이미지(PNG/JPG/BMP/TIFF) 내보내기 (중복 안내창 차단 적용)
       def start_async_image_export(model, pages, folder, export_type, width, height, anti, trans)
         total_pages = pages.size
         current_idx = 0
         timer_id = nil
-        export_finished = false # 중복 완료 방지 플래그
+        export_finished = false
 
-        # 장면 전환 애니메이션 속도 0으로 설정 (고속 내보내기)
         options = model.options['PageOptions'] rescue {}
         old_transition = options['TransitionTime'] rescue 0
         options['TransitionTime'] = 0 rescue nil
@@ -407,7 +426,7 @@ module NDS_Extensions
         update_ui_progress(0, I18n.t("PROG_PREPARING_IMG"))
 
         process_proc = proc do
-          UI.stop_timer(timer_id) if timer_id # 타이머 중복 누수 방지 (핵심)
+          UI.stop_timer(timer_id) if timer_id
 
           if current_idx < total_pages
             page = pages[current_idx]
@@ -438,15 +457,14 @@ module NDS_Extensions
             GC.start
             timer_id = UI.start_timer(0.05, false, &process_proc)
           else
-            next if export_finished # 중복 진입 방지
+            next if export_finished
             export_finished = true
 
-            options['TransitionTime'] = old_transition rescue nil # 애니메이션 설정 복원
+            options['TransitionTime'] = old_transition rescue nil
 
             @@export_busy = false
             update_ui_progress(100, I18n.t("PROG_IMG_DONE"))
             
-            # 단 1회만 알림창 출력
             UI.messagebox("#{I18n.t('MSG_EXPORT_IMG_DONE')}\n#{I18n.t('MSG_SAVED_PATH')}: #{folder}")
             UI.openURL("file:///#{folder}")
           end
